@@ -13,14 +13,6 @@
         <h4> An interface helping you create your next meal </h4>
         <a href= '/Foodies/log'> Current User Login </a>
       </div>
-     <div class = "box">
-      {% with messages = get_flashed_messages() %}
-        {% if messages: %}
-          {% for message in messages: %}
-            <p style="color:red"> {{message}} </p>
-          {% endfor %}
-        {% endif %}
-      {% endwith %}
       <div class = "box">
            <div id="center basic-form" class="section">
           <div class = "row">
@@ -49,6 +41,17 @@
                       </div>
                     </div>
                     <input class="btn waves-effect waves-light red accent-2 white-text" type= "submit" value="Register">
+                    <div class="row error">
+                      <div class="input-field col s12">
+                        {% with messages = get_flashed_messages() %}
+                          {% if messages: %}
+                            {% for message in messages: %}
+                              <p style="color:red"> {{message}} </p>
+                            {% endfor %}
+                          {% endif %}
+                        {% endwith %}
+                      </div>
+                    </div>
                   </form>
                 </div>
               </div>
@@ -56,6 +59,5 @@
           </div>
         </div>
       </div>
-    </div>
   </body>
 </html>
