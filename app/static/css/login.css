@@ -5,7 +5,7 @@ body {
 	margin-bottom: 0px;
 	margin-left: 0px;
 	background-image: url( "/static/img/indexbg2.jpg");
-	background-size: 125%;
+	background-size: 100%;
 	background-repeat: no-repeat;
 }
 #header{
@@ -36,7 +36,7 @@ body {
 		font-weight: bold;
 		float: right;
 		margin-right: 40px;
-		margin-top: 19px;
+		margin-top: 18px;
 	}
 .box{
 	opacity: 0.94;
