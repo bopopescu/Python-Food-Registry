@@ -45,6 +45,8 @@ class Foodie(Model):
             query = "INSERT INTO shopping_lists (created_at, user_id) VALUES (NOW(),%s)"
             data = [users[0]['id']]
             self.db.query_db(query, data)
+            users = "SELECT users.id, users.first_name, shopping_lists.id as shopping_list_id FROM users LEFT JOIN shopping_lists ON users.id = shopping_lists.user_id WHERE users.id=%s"
+            self.db.query_db(query, data)
             return {"status" : True, "user":users[0]}
 
 
@@ -56,6 +58,25 @@ class Foodie(Model):
 
         if emailvalid:
             if self.bcrypt.check_password_hash(emailvalid[0]['password'], password):
+                query = "SELECT users.id, users.first_name, shopping_lists.id as shopping_list_id FROM users LEFT JOIN shopping_lists ON users.id = shopping_lists.user_id WHERE users.id=%s"
+                self.db.query_db(query, emailvalid[0]['id'])
                 return {"status": True, 'user_info': emailvalid[0] }
         
-        return {"status" : False} 
+        return {"status" : False}
+
+    def add_grocery(self, item, shopping_id):
+        query = "INSERT INTO list_items (item, shopping_list_id) VALUES (%s, %s)"
+        data = [item, shopping_id]
+        self.db.query_db(query, data)
+
+    def get_groceries(self, shopping_id):
+        query = "SELECT * from list_items WHERE shopping_list_id = %s"
+        data = [shopping_id]
+        return self.db.query_db(query, data)
+
+
+
+
+
+
+
