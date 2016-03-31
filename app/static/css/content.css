@@ -3,7 +3,10 @@
         margin: 0px;
         padding: 0px;
         font-family: 'Roboto', sans-serif;
+
     }
+
+
 
     #wrapper {
         width: 960px;
@@ -32,9 +35,15 @@
         overflow-x: scroll; 
         white-space: nowrap;
 
+
       
     }
-        #nav_bar ul {
+
+    #nav_bar::-webkit-scrollbar { 
+        display: none; 
+    }
+
+    #nav_bar ul {
             /*margin: 0px auto;*/
             /*overflow-x: scroll; */
 
@@ -107,6 +116,10 @@
         overflow-y: scroll;
         background-color: #B6B6B6;
         
+    }
+
+    #search_content::-webkit-scrollbar{
+        display: none;
     }
 
     #search_content .loading {
@@ -205,7 +218,7 @@
     }
 
     #details_top img {
-        width: 40%;
+        /*width: 40%;*/
         height: 40%;
         margin-bottom: 3px;
     }
