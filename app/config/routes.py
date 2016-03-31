@@ -28,4 +28,4 @@ routes['GET']['/show_recipe/<key>'] = 'Foodies#show_recipe'
 
 routes['GET']['/get_twtr/<key>'] = 'Foodies#get_twtr'
 
-routes['POST']['/add_grocery'] = 'Foodies#add_grocery'
+routes['POST']['/Foodies/add_grocery'] = 'Foodies#add_grocery'

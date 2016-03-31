@@ -61,7 +61,7 @@
                     html_str += "</div><div id='ingredients'><ul>"
                     var ingredients = res['ingredients'];
                     for (var i=0; i < ingredients.length; i++) {
-                        html_str += "<form action='/add_grocery' method='POST>"
+                        html_str += "<form class='grocery_form' action='/Foodies/add_grocery' method='POST'>"
                         html_str += "<input type='hidden' name='item' value='"+ingredients[i]+"'>"
                         html_str += "<li class='grocery'>"+ingredients[i]+"</li>"
                         html_str += "</form>"
@@ -97,12 +97,9 @@
                 return false;
             });
 
-            $(document).on('click', 'form', function(){
-                console.log('hi')
-                $(this).submit(function(){
-                    $.post('/add_grocery', $(this).serialize(), function(res){
-
-                    });
+            $(document).on('click', '.grocery_form', function(){
+                $.post($(this).attr('action'), $(this).serialize(), function(){
+                        
                     return false;
                 });
                 

@@ -4,7 +4,7 @@
 	</thead>
 	<tbody>
 		{% for grocery in groceries %}
-		<tr><td>{{grocery}}</td></tr>
+		<tr><td>{{grocery['item']}}</td></tr>
 		{% endfor %}
 	</tbody>
 </table>

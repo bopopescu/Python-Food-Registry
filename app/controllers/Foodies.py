@@ -61,6 +61,7 @@ class Foodies(Controller):
         prefs = self.models['Preference'].get_user_prefs(session['id'])
         groceries = self.models['Foodie'].get_groceries(session['shopping_id'])
         print prefs
+        print groceries
         return self.load_view('content.html', prefs=prefs, groceries=groceries)
 
     def get_recipes(self, key):
@@ -98,3 +99,4 @@ class Foodies(Controller):
         item = request.form['item']
         print item
         grocery_list = self.models['Foodie'].add_grocery(item, session['shopping_id'])
+        return redirect('/Foodies/content')
