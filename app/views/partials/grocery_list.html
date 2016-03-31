@@ -3,9 +3,8 @@
 		<th>Item</th>
 	</thead>
 	<tbody>
-		<tr><td>Ingredient A</td></tr>
-		<tr><td>Ingredient A</td></tr>
-		<tr><td>Ingredient A</td></tr>
-		<tr><td>Ingredient A</td></tr>
+		{% for grocery in groceries %}
+		<tr><td>{{grocery}}</td></tr>
+		{% endfor %}
 	</tbody>
 </table>

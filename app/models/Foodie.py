@@ -51,18 +51,26 @@ class Foodie(Model):
 
 
     def log_in(self, login_data):
+        errors = []
+        if not login_data['email']:
+            errors.append('Please enter your email')
+        if not login_data['password']:
+            errors.append('Please enter your password')
         password= login_data['password']
         query= "SELECT * FROM users WHERE email=%s"
         data=[login_data['email']]
         emailvalid = self.db.query_db(query, data)
 
+
         if emailvalid:
             if self.bcrypt.check_password_hash(emailvalid[0]['password'], password):
                 query = "SELECT users.id, users.first_name, shopping_lists.id as shopping_list_id FROM users LEFT JOIN shopping_lists ON users.id = shopping_lists.user_id WHERE users.id=%s"
-                self.db.query_db(query, emailvalid[0]['id'])
-                return {"status": True, 'user_info': emailvalid[0] }
-        
-        return {"status" : False}
+                user = self.db.query_db(query, [emailvalid[0]['id']])
+                return {"status": True, 'user_info': user[0] }
+
+        errors.append('Your username and/or password do not match our records')
+        return {"status" : False, 'errors' : errors}
+
 
     def add_grocery(self, item, shopping_id):
         query = "INSERT INTO list_items (item, shopping_list_id) VALUES (%s, %s)"

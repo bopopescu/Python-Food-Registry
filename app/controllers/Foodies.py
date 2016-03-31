@@ -44,10 +44,12 @@ class Foodies(Controller):
         if login['status'] == True:
             session['first_name']= login['user_info']['first_name']
             session['id']= login['user_info']['id']
-            session['shopping_id'] = login['shopping_list_id']
+            session['shopping_id'] = login['user_info']['shopping_list_id']
             return redirect('/Foodies/content')
-        else: 
-            return redirect('/')
+        else:
+            for message in login['errors']:
+                flash(message)
+            return redirect('/Foodies/log') 
 
     def logout(self):
         session.pop("first_name")
@@ -57,9 +59,9 @@ class Foodies(Controller):
 
     def content(self):
         prefs = self.models['Preference'].get_user_prefs(session['id'])
-        groceries = self.models['Foodies'].get_groceries(session['shopping_id'])
+        groceries = self.models['Foodie'].get_groceries(session['shopping_id'])
         print prefs
-        return self.load_view('content.html', prefs=prefs)
+        return self.load_view('content.html', prefs=prefs, groceries=groceries)
 
     def get_recipes(self, key):
         key = key.replace(' ','%20')
