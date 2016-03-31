@@ -42,6 +42,9 @@ class Foodie(Model):
 
             get_user_query = "SELECT * FROM users ORDER BY created_at DESC LIMIT 1"
             users=self.db.query_db(get_user_query)
+            query = "INSERT INTO shopping_lists (created_at, user_id) VALUES (NOW(),%s)"
+            data = [users[0]['id']]
+            self.db.query_db(query, data)
             return {"status" : True, "user":users[0]}
 
 
