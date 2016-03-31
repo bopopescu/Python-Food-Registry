@@ -45,8 +45,8 @@ class Foodie(Model):
             query = "INSERT INTO shopping_lists (created_at, user_id) VALUES (NOW(),%s)"
             data = [users[0]['id']]
             self.db.query_db(query, data)
-            users = "SELECT users.id, users.first_name, shopping_lists.id as shopping_list_id FROM users LEFT JOIN shopping_lists ON users.id = shopping_lists.user_id WHERE users.id=%s"
-            self.db.query_db(query, data)
+            query = "SELECT users.id, users.first_name, shopping_lists.id as shopping_list_id FROM users LEFT JOIN shopping_lists ON users.id = shopping_lists.user_id WHERE users.id=%s"
+            users = self.db.query_db(query, data)
             return {"status" : True, "user":users[0]}
 
 

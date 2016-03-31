@@ -23,7 +23,7 @@ class Foodies(Controller):
     	if add_status['status']== True:
     	   session['first_name'] = add_status['user']['first_name']
            session['id'] = add_status['user']['id']
-           session['shopping_id'] = login['shopping_list_id']
+           session['shopping_id'] = add_status['user']['shopping_list_id']
     	   return redirect('/preferences')
     	else:
     		for message in add_status['errors']:
@@ -95,5 +95,5 @@ class Foodies(Controller):
         return recipe
 
     def add_grocery(self):
-        item = request.form['data']
+        
         grocery_list = self.models['Foodie'].add_grocery(item, session['shopping_id'])

@@ -61,7 +61,10 @@
                     html_str += "</div><div id='ingredients'><ul>"
                     var ingredients = res['ingredients'];
                     for (var i=0; i < ingredients.length; i++) {
-                        html_str += "<li class='grocery' data='"+ingredients[i]+"'>"+ingredients[i]+"</li>"
+                        html_str += "<form action='/add_grocery' method='POST>"
+                        html_str += "<input type='hidden' name='item' value='"+ingredients[i]+"'>"
+                        html_str += "<li class='grocery'>"+ingredients[i]+"</li>"
+                        html_str += "</form>"
                     }
                     html_str += "</ul></div>";
                     html_str += "<div id='details_bottom'><a href='"+res['source_url']+"'>Click for Directions</a>";
@@ -94,12 +97,15 @@
                 return false;
             });
 
-            $(document).on('click', '.grocery', function(){
-
-                $.post('/add_grocery', $(this).attr('data').serialize(), function(res) {
-                    
-                })
-                return false;
+            $(document).on('click', 'form', function(){
+                $(this).submit(function(){
+                    $.post('/add_grocery', $(this).serialize(), function(res){
+                        
+                    });
+                    return false;
+                });
+                
+                
             });
 
         });
