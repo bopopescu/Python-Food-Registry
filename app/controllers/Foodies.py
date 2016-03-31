@@ -23,11 +23,15 @@ class Foodies(Controller):
     	if add_status['status']== True:
     	   session['first_name'] = add_status['user']['first_name']
            session['id'] = add_status['user']['id']
+           session['shopping_id'] = login['shopping_list_id']
     	   return redirect('/preferences')
     	else:
     		for message in add_status['errors']:
     			flash(message)
     		return redirect('/')
+
+    def log(self):
+        return self.load_view("login.html")
         
     def login(self):
         login_data = { 
@@ -40,6 +44,7 @@ class Foodies(Controller):
         if login['status'] == True:
             session['first_name']= login['user_info']['first_name']
             session['id']= login['user_info']['id']
+            session['shopping_id'] = login['shopping_list_id']
             return redirect('/Foodies/content')
         else: 
             return redirect('/')
@@ -52,6 +57,7 @@ class Foodies(Controller):
 
     def content(self):
         prefs = self.models['Preference'].get_user_prefs(session['id'])
+        groceries = self.models['Foodies'].get_groceries(session['shopping_id'])
         print prefs
         return self.load_view('content.html', prefs=prefs)
 
@@ -65,15 +71,15 @@ class Foodies(Controller):
         key = key.replace(' ','')
         twtr_string = ""
         twtr_dict = {
-        'American' : "<a class=\"twitter-timeline\" href=\"https://twitter.com/hashtag/americanfood\" data-widget-id=\"715247134249848832\" width=\"300\" data-chrome=\"nofooter noborders\" data-tweet-limit=\"5\">#americanfood Tweets</a>",
-        'Asian' : "<a class=\"twitter-timeline\" href=\"https://twitter.com/hashtag/asianfood\" data-widget-id=\"715242264616763392\" width=\"300\" data-chrome=\"nofooter noborders\" data-tweet-limit=\"5\">#asianfood Tweets</a>",
-        'Brunch' : "<a class=\"twitter-timeline\" href=\"https://twitter.com/hashtag/sundaybrunch\" data-widget-id=\"715218114317651968\" width=\"300\" data-chrome=\"nofooter noborders\" data-tweet-limit=\"5\">#sundaybrunch Tweets</a>",
-        'Coffee' : "<a class=\"twitter-timeline\" href=\"https://twitter.com/hashtag/coffee\" data-widget-id=\"715256715298516993\" width=\"300\" data-chrome=\"nofooter noborders\" data-tweet-limit=\"5\">#coffee Tweets</a>",
-        'Dessert' : "<a class=\"twitter-timeline\" href=\"https://twitter.com/hashtag/dessert\" data-widget-id=\"715243048255369216\" width=\"300\" data-chrome=\"nofooter noborders\" data-tweet-limit=\"5\">#dessert Tweets</a>",
-        'Healthy' : "<a class=\"twitter-timeline\" href=\"https://twitter.com/hashtag/healthyfood\" data-widget-id=\"715257155197100032\" width=\"300\" data-chrome=\"nofooter noborders\" data-tweet-limit=\"5\">#healthyfood Tweets</a>",
-        'Italian' : "<a class=\"twitter-timeline\" href=\"https://twitter.com/hashtag/Italianfood\" data-widget-id=\"715257476849860608\" width=\"300\" data-chrome=\"nofooter noborders\" data-tweet-limit=\"5\">#Italianfood Tweets</a>",
-        'Smoothies' : "<a class=\"twitter-timeline\" href=\"https://twitter.com/hashtag/smoothies\" data-widget-id=\"715246140023701504\" width=\"300\" data-chrome=\"nofooter noborders\" data-tweet-limit=\"5\">#juices Tweets</a>",
-        'Mexican' : "<a class=\"twitter-timeline\" href=\"https://twitter.com/hashtag/latinfood\" data-widget-id=\"715246675619545088\" width=\"300\" data-chrome=\"nofooter noborders\" data-tweet-limit=\"5\">#latinfood Tweets</a>"
+        'American' : "<a class=\"twitter-timeline\" href=\"https://twitter.com/hashtag/americanfood\" data-widget-id=\"715247134249848832\" width=\"300\" data-chrome=\"nofooter noborders\" data-tweet-limit=\"20\">#americanfood Tweets</a>",
+        'Asian' : "<a class=\"twitter-timeline\" href=\"https://twitter.com/hashtag/asianfood\" data-widget-id=\"715242264616763392\" width=\"300\" data-chrome=\"nofooter noborders\" data-tweet-limit=\"20\">#asianfood Tweets</a>",
+        'Brunch' : "<a class=\"twitter-timeline\" href=\"https://twitter.com/hashtag/sundaybrunch\" data-widget-id=\"715218114317651968\" width=\"300\" data-chrome=\"nofooter noborders\" data-tweet-limit=\"20\">#sundaybrunch Tweets</a>",
+        'Coffee' : "<a class=\"twitter-timeline\" href=\"https://twitter.com/hashtag/coffee\" data-widget-id=\"715256715298516993\" width=\"300\" data-chrome=\"nofooter noborders\" data-tweet-limit=\"20\">#coffee Tweets</a>",
+        'Dessert' : "<a class=\"twitter-timeline\" href=\"https://twitter.com/hashtag/dessert\" data-widget-id=\"715243048255369216\" width=\"300\" data-chrome=\"nofooter noborders\" data-tweet-limit=\"20\">#dessert Tweets</a>",
+        'Healthy' : "<a class=\"twitter-timeline\" href=\"https://twitter.com/hashtag/healthyfood\" data-widget-id=\"715257155197100032\" width=\"300\" data-chrome=\"nofooter noborders\" data-tweet-limit=\"20\">#healthyfood Tweets</a>",
+        'Italian' : "<a class=\"twitter-timeline\" href=\"https://twitter.com/hashtag/Italianfood\" data-widget-id=\"715257476849860608\" width=\"300\" data-chrome=\"nofooter noborders\" data-tweet-limit=\"20\">#Italianfood Tweets</a>",
+        'Smoothies' : "<a class=\"twitter-timeline\" href=\"https://twitter.com/hashtag/smoothies\" data-widget-id=\"715246140023701504\" width=\"300\" data-chrome=\"nofooter noborders\" data-tweet-limit=\"20\">#juices Tweets</a>",
+        'Mexican' : "<a class=\"twitter-timeline\" href=\"https://twitter.com/hashtag/latinfood\" data-widget-id=\"715246675619545088\" width=\"300\" data-chrome=\"nofooter noborders\" data-tweet-limit=\"20\">#latinfood Tweets</a>"
 
         }
 
@@ -85,3 +91,7 @@ class Foodies(Controller):
         url = "http://food2fork.com/api/get?key="+access+"&rId="+key
         recipe = requests.get(url).content
         return recipe
+
+    def add_grocery(self):
+        item = request.form['data']
+        grocery_list = self.models['Foodie'].add_grocery(item, session['shopping_id'])
