@@ -3,11 +3,6 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
     <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
     <link href='https://fonts.googleapis.com/css?family=Roboto:700' rel='stylesheet' type='text/css'>
-     <!-- Compiled and minified CSS -->
-    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css"> -->
-
-  <!-- Compiled and minified JavaScript -->
-    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script> -->
           
     <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
     <link rel="stylesheet" href="/static/css/content.css" type="text/css">
@@ -19,19 +14,22 @@
         // });
 
         $(document).ready(function(){
+            // Activate first preference tab on load
             var banner_src = $('.pref_tab:first-child').attr('banner');
             var start = $('.pref_tab:first-child').attr('data');
             $('.pref_tab:first-child').css("background-color", "#F44336");
-            $("#banner").html("<img src='"+banner_src+"'>");
-            var start = $('.pref_tab:first-child').attr('data');
             get_recipes(start);
             get_twtr(start);
             $("#banner").html("<img src='"+banner_src+"'>");
 
+
             $(document).on('click', '.pref_tab', function() {
+                // Click a preference tab
+                // reset color of previously selected tab and clear center content
+                // change color of selected tab
+                // load new banner image, recipe list, and twitter feed
                 var key = $(this).attr('data');
                 var banner_src = $(this).attr('banner');
-                $('#search_content').html("<img class='loading' src='/static/img/loading.gif'>");
                 $('#details').html("");
                 $('#option_tab_1').css("background-color", "#B6B6B6");
                 $('.pref_tab').css("background-color", "#B6B6B6");
@@ -45,6 +43,8 @@
 
 
             $(document).on('click', '.recipe' ,function() {
+                // click a recipe, add colored border to recipe image and/or reset border of previously selected recipe
+                // load recipe details into center content
                 key = $(this).attr('data');
                 $('.recipe').css("border","4px solid rgba(0,0,0,0)");
                 $('.recipe').css("border-collapse", "collapse");
@@ -73,6 +73,7 @@
             });
 
             $(document).on('click', '#option_tab_2', function(){
+                // switch between recipe details and grocery list in center content
                 $('#option_tab_1').css("background-color", "#B6B6B6");
                 $('#details').css("display", "none");
                 $('#option_tab_2').css("background-color", "#00BCD4");
@@ -83,6 +84,7 @@
             });
 
             $(document).on('click', '#option_tab_1', function(){
+                // switch between recipe details and grocery list in center content
                 $('#option_tab_2').css("background-color", "#B6B6B6");
                 $('#details').css("display", "block");
                 $('#option_tab_1').css("background-color", "#00BCD4");
@@ -94,12 +96,16 @@
 
             $(document).on('click', '.grocery', function(){
 
-                $.post()
+                $.post('/add_grocery', $(this).attr('data').serialize(), function(res) {
+                    
+                })
                 return false;
             });
 
         });
         function get_recipes(key){
+            $('#search_content').html("<img class='loading' src='/static/img/loading.gif'>");
+
             $.get("/get_recipes/"+key, function(res) {
                     console.log(res);
                     recipes = res.recipes;
