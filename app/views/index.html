@@ -5,6 +5,8 @@
     <title>Foodies</title>
     <link rel="stylesheet" type="text/css" href="static/css/login.css"/>
     <link href='https://fonts.googleapis.com/css?family=Roboto:700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
   </head>
     <nav>
       <div id="header">
@@ -12,16 +14,43 @@
         <h4> A beautiful interace to help you create your next meal </h4>
       </div>
     </nav>      
-
-    <div class = "form_box">
-      <form action='/Foodies/login' method='POST'>
-        <h2>Log In</h2>
-        <label>Email<input type="email" name="email"></label><br>
-        <label>Password<input type="password" name="password"></label><br>
-        <input class="btn" type="submit" value="Sign In">
-      </form>
-    </div>
-
+     <div class = "form_box">
+      {% with messages = get_flashed_messages() %}
+        {% if messages: %}
+          {% for message in messages: %}
+            <p style="color:red"> {{message}} </p>
+          {% endfor %}
+        {% endif %}
+      {% endwith %}
+      <div id="center basic-form" class="section">
+        <div class = "row">
+          <div class="col s12 m12 l6">
+            <div class="card-panel">
+              <h4 class="header 2"> Login </h4>
+              <div class="row">
+                <form class ="col s12" action = '/Foodies/login' method='POST'>
+                <div class="row">
+                  <div class = "input-field col s12">
+                   email: <input type="text" name="email">
+                  </div>
+                </div>
+                <div class="row">
+                  <div class = "input-field col s12">
+                    password: <input type="password" name="password">
+                  </div>
+                </div>
+                <div class="row">
+                  <div class = "input-field col s12">
+                    <input class="btn waves-effect waves-light red accent-2 white-text" type= "submit" value="Login">
+                  </div>
+                </div>
+                </form>
+              </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     <div class = "form_box">
       {% with messages = get_flashed_messages() %}
 				{% if messages: %}
@@ -30,15 +59,39 @@
 					{% endfor %}
 				{% endif %}
 			{% endwith %}
-      <form action='/Foodies/add_user' method='POST'>
-        <h2>Register</h2>
-        <label>First Name<input type="text" name="first_name"></label><br>
-        <label>Last Name<input type="text" name="last_name"></label><br>
-        <label>E-mail<input type="email" name="email"></label><br>
-        <label>Password<input type="password" name="password"></label><br>
-        <label>Confirm Password<input type="password" name="cpw"></label><br>
-        <input class="btn" type="submit" value="Register">
-      </form>
+         <div id="center basic-form" class="section">
+        <div class = "row">
+          <div class="col s12 m12 l6">
+            <div class="card-panel">
+              <h4 class="header 2"> Register </h4>
+              <div class="row">
+                <form class = "col s12" action = '/Foodies/add_user' method='POST'>
+                  <div class="row">
+                    <div class="input-field col s6">
+                      First Name: <input type="text" name="first_name">
+                    </div>
+                    <div class="input-field col s6">
+                      Last Name: <input type="text" name="last_name">
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="input-field col s12">
+                      Email: <input type="text" name="email">
+                    </div>
+                    <div class="input-field col s12">
+                      Password: <input type="password" name="password">
+                    </div>
+                    <div class="input-field col s12">
+                      Confirm Password<input type="password" name="cpw">
+                    </div>
+                  </div>
+                  <input class="btn waves-effect waves-light red accent-2 white-text" type= "submit" value="Register">
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </body>
 </html>
