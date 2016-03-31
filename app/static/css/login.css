@@ -4,7 +4,9 @@ body {
 	margin-right: 0px;
 	margin-bottom: 0px;
 	margin-left: 0px;
-	background-image: url( "static/img/indexbg.jpg");
+	background-image: url( "/static/img/indexbg2.jpg");
+	background-size: 125%;
+	background-repeat: no-repeat;
 }
 #header{
 	vertical-align: top;
@@ -25,17 +27,9 @@ body {
 		color: white;
 	}
 .form_box{
-	display: inline-block;
-	background-color: black;
-	margin: 95px;
-	padding: 30px;
-	height: 275px;
-	width: 350px;
-	text-align: center;
-	vertical-align: top;
-	/*opacity: 0.75;*/
+	opacity: 0.90;
 }
-	.form_box h2{
+	/*.form_box h2{
 		font-family: 'Roboto', sans-serif;
 		font-size: 22px;
 		color: white;
@@ -105,3 +99,4 @@ body {
   
   transition: width .2s ease-out, padding-top .2s ease-out;
 }
+*/
