@@ -98,9 +98,10 @@
             });
 
             $(document).on('click', 'form', function(){
+                console.log('hi')
                 $(this).submit(function(){
                     $.post('/add_grocery', $(this).serialize(), function(res){
-                        
+
                     });
                     return false;
                 });

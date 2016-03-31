@@ -95,5 +95,6 @@ class Foodies(Controller):
         return recipe
 
     def add_grocery(self):
-        
+        item = request.form['item']
+        print item
         grocery_list = self.models['Foodie'].add_grocery(item, session['shopping_id'])

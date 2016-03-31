@@ -29,6 +29,9 @@ class Foodie(Model):
             errors.append("Password cannot be blank")
         if users['password'] != users['cpw']:
             errors.append("Passwords do no match")
+        if len(self.db.query_db("SELECT email from users WHERE email = '{}'".format(re.escape(users['email'])))) > 0:
+            errors.append("User already exists.")
+
 
         if errors:
             return {"status":False, "errors":errors}
