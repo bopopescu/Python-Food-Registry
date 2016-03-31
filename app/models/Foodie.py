@@ -52,10 +52,6 @@ class Foodie(Model):
 
     def log_in(self, login_data):
         errors = []
-        if not login_data['email']:
-            errors.append('Please enter your email')
-        if not login_data['password']:
-            errors.append('Please enter your password')
         password= login_data['password']
         query= "SELECT * FROM users WHERE email=%s"
         data=[login_data['email']]
