@@ -55,7 +55,7 @@ class Foodies(Controller):
         session.pop("first_name")
         session.pop("id")
         flash("You have successfully logged out")
-        return redirect('/')
+        return redirect('/Foodies/log')
 
     def content(self):
         prefs = self.models['Preference'].get_user_prefs(session['id'])
