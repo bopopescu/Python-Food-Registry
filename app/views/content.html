@@ -57,6 +57,7 @@
                     var html_str = "<div id='details_top'>"
                     html_str += "<img src='"+res['image_url']+"'>"
                     html_str += "<h4>"+res['title']+"</h4>"
+                    html_str += "<h6 style='font-size: 0.6em;'>Click on an ingredient to add it to your grocery list</h6>"
                     html_str += "</div><div id='ingredients'><ul>"
                     var ingredients = res['ingredients'];
                     for (var i=0; i < ingredients.length; i++) {
@@ -95,11 +96,17 @@
 
             $(document).on('click', '.grocery_form', function(){
                 // add item to grocery list
+
+                $(this).css("background-color", "#e53935");
+
+                setTimeout(function(){
+                    $('.grocery_form').removeAttr('style');
+                }, 50);
+
                 $.post($(this).attr('action'), $(this).serialize(), function(){
 
                     return false;
                 });
-                
                 
             });
 

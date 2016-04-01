@@ -284,25 +284,30 @@
        width: 90%;
        height: 40%;
        overflow-y: scroll;
-       margin-top: 15px;
-/*       background-color: #ffb74d ;
-*/        box-shadow: 1px 1px 82px -57px rgba(0,0,0,0.51);
+       margin-top: 10px;
+/*     background-color: #ffb74d ;
+*/     box-shadow: 1px 1px 82px -57px rgba(0,0,0,0.51);
    }
 
 
    #ingredients ul li{
        list-style: none;
-       margin-left: 10%;
-       margin-top: 15px;
+       /*margin-left: 10%;*/
+       margin-top: 5px;
        margin-bottom: 20px;
        letter-spacing: 0.5px;
        cursor: pointer;
 
    }
 
+   .grocery_form {
+      margin-left: 10%;
+   }
+
+
    #details_bottom {
        /*height: 10%;*/
-       margin-top: 20px;
+       margin-top: 15px;
        margin-left: 65%;
    }
        #details_bottom a{
