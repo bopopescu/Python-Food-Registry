@@ -15,6 +15,7 @@
     #header h2{
         display: inline-block;
         font-family: 'Roboto', sans-serif;
+        font-weight: 700;
         color: white;
         margin-top: 14px;
         margin-left: 40px;
@@ -22,6 +23,7 @@
     #header h4{
         display: inline-block;
         font-family: 'Roboto', sans-serif;
+        font-weight: 700;
         color: white;
     }
     #header a{
@@ -29,6 +31,7 @@
         text-decoration: none;
         color: white;
         font-family: 'Roboto', sans-serif;
+        font-weight: 700;
         float: right;
         margin-right: 40px;
         margin-top: 21px;
@@ -93,6 +96,7 @@
             line-height: 35px;
             color: white;
             font-size: 1.4em;
+            font-weight: 700;
         }
 
         #nav_bar a:hover{
@@ -164,6 +168,7 @@
     #search_content .recipe {
         height: 20%;
         width: 225px;
+        font-weight: 700;
         /*border-bottom: 1px solid black;*/
         /*margin-top: 20px;*/
         /*background-color: #00BCD4;*/
@@ -290,6 +295,7 @@
        margin-left: 10%;
        margin-top: 15px;
        margin-bottom: 20px;
+       letter-spacing: 0.5px;
 
    }
 
@@ -300,6 +306,7 @@
    }
        #details_bottom a{
            text-decoration: none;
+           font-weight: 700;
        }
        #details_bottom h6 {
            font-size: 5pt;
@@ -315,20 +322,15 @@
 
     #groceries {
         width: 100%;
-       /*margin-top: 5px;*/
-       /*height: 100%;*/
         text-align: center;
+        font-weight: 100;
+        letter-spacing: 0.5px;
         border-collapse: collapse;
-        border: 1px solid black;
 
     }
 
     #groceries tr:nth-child(even) {
-        background-color: #B6B6B6 ;
-    }
-
-    #groceries tr {
-        border-top: 1px solid black;
+        background-color: #e9e9e9;
     }
 
    #groceries td {
@@ -348,6 +350,7 @@
    padding: 0;
    overflow: hidden;
    font-family: 'Roboto', sans-serif;
+   font-weight: 700;
    font-size: 12px;
    border-width: 0;
    outline: none;
