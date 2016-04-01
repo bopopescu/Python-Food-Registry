@@ -38,7 +38,6 @@ class Foodies(Controller):
         'email': request.form['email'], 
         'password': request.form['password']
         }
-        print login_data
         login= self.models['Foodie'].log_in(login_data)
 
         if login['status'] == True:
@@ -59,8 +58,11 @@ class Foodies(Controller):
 
     def content(self):
         prefs = self.models['Preference'].get_user_prefs(session['id'])
+        print prefs
+        if not prefs[0]['preference_id']:
+            return redirect('/preferences')
         groceries = self.models['Foodie'].get_groceries(session['shopping_id'])
-        
+    
         return self.load_view('content.html', prefs=prefs, groceries=groceries)
 
     def get_recipes(self, key):
@@ -96,7 +98,6 @@ class Foodies(Controller):
 
     def add_grocery(self):
         item = request.form['item']
-        print item
         grocery_list = self.models['Foodie'].add_grocery(item, session['shopping_id'])
         return redirect('/Foodies/content')
 
