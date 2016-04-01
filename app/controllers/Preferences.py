@@ -21,13 +21,11 @@ class Preferences(Controller):
         'Italian': request.form['Italian'],
         'Healthy': request.form['Healthy'],
         }
-        print preferences[preferences.keys()[0]]
         count = 0
         for x in preferences.keys():
             if not preferences[x]:
                 count += 1
-        print count
-        if count == 9:
+        if count == len(preferences.keys()):
             flash("Please choose at least one preference")
             return redirect('/preferences')
         else:
