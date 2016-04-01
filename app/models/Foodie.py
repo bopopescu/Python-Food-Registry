@@ -81,6 +81,11 @@ class Foodie(Model):
         data = [shopping_id]
         return self.db.query_db(query, data)
 
+    def remove_grocery(self, item, shopping_id):
+        query = "DELETE FROM list_items WHERE id =%s and shopping_list_id=%s"
+        data = [item, shopping_id]
+        self.db.query_db(query, data)
+
 
 
 

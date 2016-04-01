@@ -17,7 +17,7 @@
             // Activate first preference tab on load
             var banner_src = $('.pref_tab:first-child').attr('banner');
             var start = $('.pref_tab:first-child').attr('data');
-            $('.pref_tab:first-child').css("background-color", "#F44336");
+            $('.pref_tab:first-child').css("background-color", "#F6685e");
             get_recipes(start);
             get_twtr(start);
             $("#banner").html("<img src='"+banner_src+"'>");
@@ -31,9 +31,9 @@
                 var key = $(this).attr('data');
                 var banner_src = $(this).attr('banner');
                 $('#details').html("");
-                $('#option_tab_1').css("background-color", "#B6B6B6");
-                $('.pref_tab').css("background-color", "#B6B6B6");
-                $(this).css("background-color", "#F44336");
+                $('#option_tab_1').css("background-color", "#e53935");
+                $('.pref_tab').css("background-color", "#e53935");
+                $(this).css("background-color", "#F6685e");
                 get_recipes(key);
                 get_twtr(key);
                 $("#banner").html("<img src='"+banner_src+"'>");
@@ -49,11 +49,11 @@
                 $('.recipe').css("border","4px solid rgba(0,0,0,0)");
                 $('.recipe').css("border-collapse", "collapse");
                 $(this).css('border', "4px solid #F44336");
-                $('#option_tab_1').css("background-color", "#00BCD4");
-                console.log(key);
+                $('#option_tab_1').css("background-color", "#e53935");
+                
                 $('#details').html("<img class='loading' src='/static/img/loading.gif'>")
                 $.get("/show_recipe/"+key, function(res) {
-                    console.log(res);
+                    
                     res = res['recipe'];
                     var html_str = "<div id='details_top'>"
                     html_str += "<img src='"+res['image_url']+"'>"
@@ -77,10 +77,14 @@
 
             $(document).on('click', '#option_tab_2', function(){
                 // switch between recipe details and grocery list in center content
-                $('#option_tab_1').css("background-color", "#B6B6B6");
+                $('#option_tab_1').css("background-color", "#ffb74d");
                 $('#details').css("display", "none");
-                $('#option_tab_2').css("background-color", "#00BCD4");
+                $('#option_tab_2').css("background-color", "#e53935");
                 $('#grocery_list').css("display", "block")
+
+                $.get('/get_groceries', function(res){
+                    $("#grocery_list").html(res);
+                })
 
 
                 return false;
@@ -88,9 +92,9 @@
 
             $(document).on('click', '#option_tab_1', function(){
                 // switch between recipe details and grocery list in center content
-                $('#option_tab_2').css("background-color", "#B6B6B6");
+                $('#option_tab_2').css("background-color", "#ffb74d");
                 $('#details').css("display", "block");
-                $('#option_tab_1').css("background-color", "#00BCD4");
+                $('#option_tab_1').css("background-color", "#e53935");
                 $('#grocery_list').css("display", "none");
 
 
@@ -99,11 +103,26 @@
 
             $(document).on('click', '.grocery_form', function(){
                 $.post($(this).attr('action'), $(this).serialize(), function(){
-                        
+
                     return false;
                 });
                 
                 
+            });
+
+            $(document).on('click', '.btn', function(){
+                var item = $(this).attr('data');
+                console.log(item);
+                $.post($('#'+item).attr('action'), $('#'+item).serialize(), function(){
+
+
+                });
+
+                $.get('/get_groceries', function(res){
+                    $("#grocery_list").html(res);
+                })
+                
+                return false;
             });
 
         });
@@ -149,9 +168,14 @@
                 twttr.ready(function (twttr) { twttr.widgets.load();});
             });
         }
+
     </script>
     </head>
         <body>
+         <div id="header">
+                <h2> Welcome, {{session["first_name"]}}: &nbsp;</h2>
+                <a href="/Foodies/logout"> Logout </a>
+            </div>
         <div id="wrapper">
             <div id="banner">`
             </div> <!-- end of banner -->

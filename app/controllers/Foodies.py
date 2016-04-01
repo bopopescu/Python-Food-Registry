@@ -1,6 +1,6 @@
 
 from system.core.controller import *
-access = "14ac1d156baeae4607a8d0731456e5c5"
+access = "d40b90968cc0a0052dd0155deb54550f"
 
 class Foodies(Controller):
     def __init__(self, action):
@@ -60,8 +60,7 @@ class Foodies(Controller):
     def content(self):
         prefs = self.models['Preference'].get_user_prefs(session['id'])
         groceries = self.models['Foodie'].get_groceries(session['shopping_id'])
-        print prefs
-        print groceries
+        
         return self.load_view('content.html', prefs=prefs, groceries=groceries)
 
     def get_recipes(self, key):
@@ -100,3 +99,16 @@ class Foodies(Controller):
         print item
         grocery_list = self.models['Foodie'].add_grocery(item, session['shopping_id'])
         return redirect('/Foodies/content')
+
+    def remove_grocery(self):
+        item = request.form['item']
+        self.models['Foodie'].remove_grocery(item, session['shopping_id'])
+        return redirect('/Foodies/content')
+
+    def get_groceries(self):
+        groceries = self.models['Foodie'].get_groceries(session['shopping_id'])
+        print groceries
+        return self.load_view('partials/grocery_list.html', groceries=groceries)
+
+
+
