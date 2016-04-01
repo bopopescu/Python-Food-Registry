@@ -66,7 +66,7 @@
                         html_str += "</form>"
                     }
                     html_str += "</ul></div>";
-                    html_str += "<div id='details_bottom'><a href='"+res['source_url']+"'>Click for Instructions</a>";
+                    html_str += "<div id='details_bottom'><a target='_blank' href='"+res['source_url']+"'>Click for Instructions</a>";
                     html_str += "<h6>Powered By Food2Fork.com</h6></div>";
                     $('#details').html(html_str);
                 }, 'json');

@@ -167,7 +167,7 @@
 
     #search_content .recipe {
         height: 20%;
-        width: 225px;
+        width: 224px;
         font-weight: 700;
         /*border-bottom: 1px solid black;*/
         /*margin-top: 20px;*/
@@ -296,6 +296,7 @@
        margin-top: 15px;
        margin-bottom: 20px;
        letter-spacing: 0.5px;
+       cursor: pointer;
 
    }
 
@@ -337,10 +338,6 @@
        height: 40px;
    }
 
-   #groceries td button {
-       /*height: 100%*/
-   }
-
    .btn {
    position: relative;
    display: block;
@@ -360,6 +357,7 @@
    color: #ecf0f1 ;
    transition: background-color .3s;
    padding: 4px 10px;
+   cursor: pointer;
 }
 
 .btn:hover, .btn:focus {
