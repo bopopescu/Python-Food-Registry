@@ -107,7 +107,6 @@ class Foodies(Controller):
 
     def get_groceries(self):
         groceries = self.models['Foodie'].get_groceries(session['shopping_id'])
-        print groceries
         return self.load_view('partials/grocery_list.html', groceries=groceries)
 
 
