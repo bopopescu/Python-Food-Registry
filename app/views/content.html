@@ -47,10 +47,8 @@
                 // load recipe details into center content
                 key = $(this).attr('data');
                 $('.recipe').css("border","4px solid rgba(0,0,0,0)");
-                $('.recipe').css("border-collapse", "collapse");
                 $(this).css('border', "4px solid #F44336");
-                $('#option_tab_1').css("background-color", "#e53935");
-                
+                switch_options();
                 $('#details').html("<img class='loading' src='/static/img/loading.gif'>")
                 $.get("/show_recipe/"+key, function(res) {
                     
@@ -67,7 +65,7 @@
                         html_str += "</form>"
                     }
                     html_str += "</ul></div>";
-                    html_str += "<div id='details_bottom'><a href='"+res['source_url']+"'>Click for Directions</a>";
+                    html_str += "<div id='details_bottom'><a href='"+res['source_url']+"'>Click for Instructions</a>";
                     html_str += "<h6>Powered By Food2Fork.com</h6></div>";
                     $('#details').html(html_str);
                 }, 'json');
@@ -81,7 +79,6 @@
                 $('#details').css("display", "none");
                 $('#option_tab_2').css("background-color", "#e53935");
                 $('#grocery_list').css("display", "block")
-
                 $.get('/get_groceries', function(res){
                     $("#grocery_list").html(res);
                 })
@@ -90,13 +87,9 @@
                 return false;
             });
 
-            $(document).on('click', '#option_tab_1', function(){
-                // switch between recipe details and grocery list in center content
-                $('#option_tab_2').css("background-color", "#ffb74d");
-                $('#details').css("display", "block");
-                $('#option_tab_1').css("background-color", "#e53935");
-                $('#grocery_list').css("display", "none");
+            $(document).on('click', '#option_tab_1',function(){
 
+                switch_options();
 
                 return false;
             });
@@ -112,7 +105,6 @@
 
             $(document).on('click', '.btn', function(){
                 var item = $(this).attr('data');
-                console.log(item);
                 $.post($('#'+item).attr('action'), $('#'+item).serialize(), function(){
 
 
@@ -130,7 +122,6 @@
             $('#search_content').html("<img class='loading' src='/static/img/loading.gif'>");
 
             $.get("/get_recipes/"+key, function(res) {
-                    console.log(res);
                     recipes = res.recipes;
                     var html_str = ""
                     $('#details').html(html_str);
@@ -167,6 +158,16 @@
                 }(document, "script", "twitter-wjs"));
                 twttr.ready(function (twttr) { twttr.widgets.load();});
             });
+        }
+
+        function switch_options() {
+
+            // switch between recipe details and grocery list in center content
+            $('#option_tab_2').css("background-color", "#ffb74d");
+            $('#details').css("display", "block");
+            $('#option_tab_1').css("background-color", "#e53935");
+            $('#grocery_list').css("display", "none");
+
         }
 
     </script>
