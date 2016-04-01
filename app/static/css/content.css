@@ -117,8 +117,8 @@
     }
 
     #twtr_content .loading {
-        width: 100%;
-        height: 50%;
+        width: 50%;
+        margin-left: 58px;
     }
 
     #twtr_tab_right #twtr_content {
@@ -155,7 +155,9 @@
     }
 
     #search_content .loading {
-        width: 100%;
+      width: 50%;
+      margin-left: 58px;
+
     }
 
 
@@ -257,8 +259,8 @@
    }
 
    #details .loading {
-       width: 100%;
-       height: 100%;
+       width: 35%;
+       margin-left: 150px;
     }
 
    #details_top {
