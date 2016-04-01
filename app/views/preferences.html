@@ -32,10 +32,17 @@
 	    <div id="container">
 	    	<div id="header">
 	    		<h2> Welcome, {{session["first_name"]}}: &nbsp;</h2>
-	    		<h4>Please Select Your Preferences Below</h4>
+	    		<h4>Please Choose Your Preferences Below</h4>
 	    		<a href="/Foodies/logout"> Logout </a>
 	    	</div>
 	    	<div id="prefs">
+				{% with messages = get_flashed_messages() %}
+					{% if messages: %}
+						{% for message in messages: %}
+							<p style="color:red; margin-left:40px; margin-bottom:5px;"> {{message}} </p>
+						{% endfor %}
+					{% endif %}
+				{% endwith %}
 	    		<form action='/preferences/add' method="POST">
 		    		<div class="preference darken">
 		    			<img src = "{{ url_for("static", filename = "img/asian.png")}}">
