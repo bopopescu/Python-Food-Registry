@@ -31,8 +31,9 @@
                 var key = $(this).attr('data');
                 var banner_src = $(this).attr('banner');
                 $('#details').html("");
-                switch_options();
+                // switch_options();
                 $('.pref_tab').css("background-color", "#e53935");
+                $('#option_tab_1').css("background-color", "#ffb74d");
                 $(this).css("background-color", "#F6685e");
                 get_recipes(key);
                 get_twtr(key);
@@ -88,13 +89,12 @@
             });
 
             $(document).on('click', '#option_tab_1',function(){
-
                 switch_options();
-
                 return false;
             });
 
             $(document).on('click', '.grocery_form', function(){
+                // add item to grocery list
                 $.post($(this).attr('action'), $(this).serialize(), function(){
 
                     return false;
@@ -104,10 +104,9 @@
             });
 
             $(document).on('click', '.btn', function(){
+                // remove item from grocery list
                 var item = $(this).attr('data');
                 $.post($('#'+item).attr('action'), $('#'+item).serialize(), function(){
-
-
                 });
 
                 $.get('/get_groceries', function(res){
