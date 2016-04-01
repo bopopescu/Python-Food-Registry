@@ -21,11 +21,21 @@ class Preferences(Controller):
         'Italian': request.form['Italian'],
         'Healthy': request.form['Healthy'],
         }
-        prefs = {}
-        for keys in preferences.keys():
-            if preferences[keys]:
-                prefs[keys] = preferences[keys]
-        print prefs
-        self.models['Preference'].add_preferences(prefs, session["id"])
-        return redirect ('/Foodies/content')
+        print preferences[preferences.keys()[0]]
+        count = 0
+        for x in preferences.keys():
+            if not preferences[x]:
+                count += 1
+        print count
+        if count == 9:
+            flash("Please choose at least one preference")
+            return redirect('/preferences')
+        else:
+            prefs = {}
+            for keys in preferences.keys():
+                if preferences[keys]:
+                    prefs[keys] = preferences[keys]
+            self.models['Preference'].add_preferences(prefs, session["id"])
+            return redirect ('/Foodies/content')
+
         
